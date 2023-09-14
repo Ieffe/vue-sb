@@ -1,30 +1,70 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+    <page-header></page-header>
+    <router-view v-slot="slotProps">
+      <transition name="route" mode="out-in">
+        <component :is="slotProps.Component"> </component>
+      </transition>
+    </router-view>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script>
+    import PageHeader from './components/layout/PageHeader.vue'
+
+    export default {
+        components: {
+            PageHeader
+        }
+    }
+</script>
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+* {
+  box-sizing: border-box;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+html {
+  font-family: "Roboto", sans-serif;
+  height: 100%;
+  
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+body {
+  margin: 0;
+  height: 100%;
 }
+
+.route-enter-from{
+  opacity: 0;
+  transform: translateX(-30px)
+}
+
+.route-enter-to, .route-leave-from{
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+.route-enter-active{
+  transition: all 0.3s ease-out;
+}
+
+.route-leave-to{
+  opacity: 0;
+  transform: translateX(30px)
+}
+
+
+.route-leave-active{
+  transition: all 0.3s ease-in;
+}
+
+
+
+
+</style>
+
+<style lang="postcss">
+
 </style>
